@@ -12,8 +12,11 @@ themeToggle.addEventListener('click', toggleTheme);
 uploadTeams.addEventListener('change', handleFileUploadTeams);
 uploadPlayers.addEventListener('change', handleFileUploadPlayers);
 
-// Inicializar Histórico
-document.addEventListener('DOMContentLoaded', loadHistory);
+// Inicializar Histórico e Tema
+document.addEventListener('DOMContentLoaded', () => {
+    loadHistory();
+    loadTheme();
+});
 
 // Função para Sortear Equipas e Jogadores
 function sortTeams() {
@@ -56,8 +59,10 @@ function sortTeams() {
 
 // Função para Reiniciar o Sorteio
 function resetSorteio() {
-    if (confirm('Tem a certeza que deseja reiniciar o sorteio? Isso irá limpar os resultados atuais.')) {
+    if (confirm('Tem a certeza que deseja reiniciar o sorteio? Isso irá limpar os resultados atuais e os campos de entrada.')) {
         document.getElementById('result').innerHTML = '';
+        document.getElementById('teams').value = '';
+        document.getElementById('players').value = '';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
@@ -79,7 +84,6 @@ function loadTheme() {
         themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
     }
 }
-loadTheme();
 
 // Função para Verificar Duplicados
 function hasDuplicates(array) {
@@ -217,41 +221,3 @@ function handleFileUploadPlayers(event) {
         });
     }
 }
-
-// Função para Resetar o Sorteio
-function resetSorteio() {
-    if (confirm('Tem a certeza que deseja reiniciar o sorteio? Isso irá limpar os resultados atuais.')) {
-        document.getElementById('result').innerHTML = '';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
-// Carregar o Histórico ao Inicializar
-function loadHistory() {
-    const historyList = document.getElementById('historyList');
-    historyList.innerHTML = '';
-
-    const history = JSON.parse(localStorage.getItem('history')) || [];
-
-    if (history.length === 0) {
-        historyList.innerHTML = '<li class="list-group-item">Nenhum sorteio realizado ainda.</li>';
-        return;
-    }
-
-    history.slice().reverse().forEach((entry, index) => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-        listItem.innerHTML = `<span>${entry.timestamp}</span>`;
-        
-        const viewButton = document.createElement('button');
-        viewButton.classList.add('badge', 'bg-primary', 'rounded-pill');
-        viewButton.textContent = 'Ver';
-        viewButton.addEventListener('click', () => displayHistoricalResult(entry));
-
-        listItem.appendChild(viewButton);
-        historyList.appendChild(listItem);
-    });
-}
-
-// Inicializar o Histórico ao Carregar a Página
-document.addEventListener('DOMContentLoaded', loadHistory);
