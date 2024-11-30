@@ -8,9 +8,9 @@ function sortTeams() {
     let teams = teamsInput.split('\n').map(item => item.trim()).filter(item => item !== '');
     let players = playersInput.split('\n').map(item => item.trim()).filter(item => item !== '');
 
-    // Verificar se há a mesma quantidade de equipes e jogadores
+    // Verificar se há a mesma quantidade de equipas e jogadores
     if (teams.length !== players.length) {
-        alert('O número de equipes e jogadores deve ser igual!');
+        alert('O número de equipas e jogadores deve ser igual!');
         return;
     }
 
@@ -40,8 +40,11 @@ function displayResults(pairs) {
 
     pairs.forEach(pair => {
         const pairDiv = document.createElement('div');
-        pairDiv.classList.add('pair');
-        pairDiv.textContent = `A equipe "${pair.team}" foi sorteada para "${pair.player}".`;
+        pairDiv.classList.add('pair', 'shadow-sm');
+        pairDiv.innerHTML = `<strong>Equipa:</strong> ${pair.team} &nbsp; <strong>Jogador:</strong> ${pair.player}`;
         resultDiv.appendChild(pairDiv);
     });
+
+    // Scroll suave até aos resultados
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
