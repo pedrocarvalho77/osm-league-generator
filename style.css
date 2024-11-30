@@ -70,4 +70,59 @@ textarea::placeholder {
 .pair {
     padding: 15px;
     margin-bottom: 10px;
-    border-left: 5
+    border-left: 5px solid var(--pair-border-color);
+    background-color: var(--pair-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border-left-color 0.3s;
+}
+
+.badge.bg-primary {
+    background-color: var(--badge-bg-primary);
+    cursor: pointer;
+}
+
+/* Modo Escuro */
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --card-header-bg-primary: #333333;
+    --card-header-bg-success: #28a745;
+    --button-bg-secondary: #444444;
+    --button-text-secondary: #ffffff;
+    --button-bg-primary: #0d6efd;
+    --button-bg-warning: #ffc107;
+    --badge-bg-primary: #0d6efd;
+    --pair-border-color: #0d6efd;
+    --pair-bg: #343a40;
+}
+
+body.dark-mode .list-group-item {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .list-group-item:nth-child(odd) {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .pair {
+    background-color: var(--pair-bg);
+}
+
+body.dark-mode .badge.bg-primary {
+    background-color: var(--badge-bg-primary);
+}
+
+/* Ajustes Adicionais para Melhor Compatibilidade */
+body.dark-mode .btn-primary {
+    background-color: var(--button-bg-primary);
+    border-color: var(--button-bg-primary);
+}
+
+body.dark-mode .btn-warning {
+    background-color: var(--button-bg-warning);
+    border-color: var(--button-bg-warning);
+    color: #212529;
+}
