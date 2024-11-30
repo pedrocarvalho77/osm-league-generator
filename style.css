@@ -158,3 +158,8 @@ body.dark-mode .btn-success {
     color: inherit; /* Garante que o texto segue o tema atual */
     border-radius: 8px;
 }
+
+/* Estilização dos Botões de Exportação */
+#result .btn {
+    min-width: 200px;
+}
