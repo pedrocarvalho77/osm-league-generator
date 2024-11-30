@@ -4,8 +4,6 @@ const resetButton = document.getElementById('resetButton');
 const themeToggle = document.getElementById('themeToggle');
 const uploadTeams = document.getElementById('uploadTeams');
 const uploadPlayers = document.getElementById('uploadPlayers');
-const exportImageButton = document.getElementById('exportImageButton');
-const exportCSVButton = document.getElementById('exportCSVButton');
 
 // Adicionar Event Listeners
 sortButton.addEventListener('click', sortTeams);
@@ -13,8 +11,6 @@ resetButton.addEventListener('click', resetSorteio);
 themeToggle.addEventListener('click', toggleTheme);
 uploadTeams.addEventListener('change', handleFileUploadTeams);
 uploadPlayers.addEventListener('change', handleFileUploadPlayers);
-exportImageButton.addEventListener('click', exportResultsAsImage);
-exportCSVButton.addEventListener('click', exportResultsAsCSV);
 
 // Inicializar Histórico e Tema
 document.addEventListener('DOMContentLoaded', () => {
@@ -133,6 +129,31 @@ function displayResults(pairs) {
         resultDiv.appendChild(pairDiv);
     });
 
+    // Adicionar Botões de Exportação na Seção de Resultados
+    const exportButtonsDiv = document.createElement('div');
+    exportButtonsDiv.classList.add('mt-3');
+
+    // Botão para Exportar como CSV
+    const exportCSVButton = document.createElement('button');
+    exportCSVButton.id = 'exportCSVButton';
+    exportCSVButton.classList.add('btn', 'btn-success', 'me-2');
+    exportCSVButton.innerHTML = '<i class="fas fa-download"></i> Exportar CSV';
+    exportCSVButton.addEventListener('click', () => exportResultsAsCSV(pairs));
+
+    // Botão para Exportar como Imagem
+    const exportImageButton = document.createElement('button');
+    exportImageButton.id = 'exportImageButton';
+    exportImageButton.classList.add('btn', 'btn-info');
+    exportImageButton.innerHTML = '<i class="fas fa-image"></i> Exportar Imagem';
+    exportImageButton.addEventListener('click', () => exportResultsAsImage());
+
+    // Adicionar Botões ao Div
+    exportButtonsDiv.appendChild(exportCSVButton);
+    exportButtonsDiv.appendChild(exportImageButton);
+
+    // Adicionar Botões ao Div de Resultados
+    resultDiv.appendChild(exportButtonsDiv);
+
     // Scroll suave até aos resultados
     resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
@@ -185,25 +206,41 @@ function displayHistoricalResult(entry) {
         resultDiv.appendChild(pairDiv);
     });
 
+    // Adicionar Botões de Exportação na Seção de Resultados
+    const exportButtonsDiv = document.createElement('div');
+    exportButtonsDiv.classList.add('mt-3');
+
+    // Botão para Exportar como CSV
+    const exportCSVButton = document.createElement('button');
+    exportCSVButton.id = 'exportCSVButton';
+    exportCSVButton.classList.add('btn', 'btn-success', 'me-2');
+    exportCSVButton.innerHTML = '<i class="fas fa-download"></i> Exportar CSV';
+    exportCSVButton.addEventListener('click', () => exportResultsAsCSV(entry.pairs));
+
+    // Botão para Exportar como Imagem
+    const exportImageButton = document.createElement('button');
+    exportImageButton.id = 'exportImageButton';
+    exportImageButton.classList.add('btn', 'btn-info');
+    exportImageButton.innerHTML = '<i class="fas fa-image"></i> Exportar Imagem';
+    exportImageButton.addEventListener('click', () => exportResultsAsImage());
+
+    // Adicionar Botões ao Div
+    exportButtonsDiv.appendChild(exportCSVButton);
+    exportButtonsDiv.appendChild(exportImageButton);
+
+    // Adicionar Botões ao Div de Resultados
+    resultDiv.appendChild(exportButtonsDiv);
+
     // Scroll suave até aos resultados
     resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Função para Exportar Resultados em CSV
-function exportResultsAsCSV() {
-    const resultDiv = document.getElementById('result');
-    if (resultDiv.innerHTML.trim() === '') {
+function exportResultsAsCSV(pairs) {
+    if (pairs.length === 0) {
         alert('Não há resultados para exportar.');
         return;
     }
-
-    const pairs = [];
-    const pairDivs = resultDiv.querySelectorAll('.pair');
-    pairDivs.forEach(div => {
-        const team = div.querySelector('strong').nextSibling.textContent.trim();
-        const player = div.querySelector('strong:nth-of-type(2)').nextSibling.textContent.trim();
-        pairs.push({ team, player });
-    });
 
     const csvContent = "data:text/csv;charset=utf-8," 
         + "Equipa,Jogador\n"
