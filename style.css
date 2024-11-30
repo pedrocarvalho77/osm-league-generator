@@ -1,29 +1,25 @@
+/* Estilo padrão (claro) */
 body {
     background-color: #f8f9fa;
+    color: #212529;
 }
 
-.card-header h5 {
-    margin: 0;
+/* Modo Escuro */
+body.dark-mode {
+    background-color: #212529;
+    color: #f8f9fa;
 }
 
-#result h2 {
-    text-align: center;
-    margin-bottom: 20px;
+body.dark-mode .card {
+    background-color: #343a40;
+    color: #f8f9fa;
 }
 
-.pair {
-    padding: 15px;
-    margin-bottom: 10px;
-    border-left: 5px solid #0d6efd;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+body.dark-mode .card-header {
+    background-color: #495057;
 }
 
-.pair:nth-child(odd) {
-    border-left-color: #198754;
-}
-
-.pair:nth-child(even) {
-    border-left-color: #dc3545;
+body.dark-mode .pair {
+    background-color: #495057;
+    border-left-color: #ffc107;
 }
