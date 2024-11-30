@@ -28,6 +28,11 @@ function sortTeams() {
     let players = playersInput.split('\n').map(item => item.trim()).filter(item => item !== '');
 
     // Validação de Dados
+    if (teams.length === 0 || players.length === 0) {
+        alert('Por favor, insira pelo menos uma equipa e um jogador.');
+        return;
+    }
+
     if (teams.length !== players.length) {
         alert('O número de equipas e jogadores deve ser igual!');
         return;
@@ -82,6 +87,9 @@ function loadTheme() {
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
     }
 }
 
