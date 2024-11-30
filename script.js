@@ -4,6 +4,8 @@ const resetButton = document.getElementById('resetButton');
 const themeToggle = document.getElementById('themeToggle');
 const uploadTeams = document.getElementById('uploadTeams');
 const uploadPlayers = document.getElementById('uploadPlayers');
+const exportImageButton = document.getElementById('exportImageButton');
+const exportCSVButton = document.getElementById('exportCSVButton');
 
 // Adicionar Event Listeners
 sortButton.addEventListener('click', sortTeams);
@@ -11,6 +13,8 @@ resetButton.addEventListener('click', resetSorteio);
 themeToggle.addEventListener('click', toggleTheme);
 uploadTeams.addEventListener('change', handleFileUploadTeams);
 uploadPlayers.addEventListener('change', handleFileUploadPlayers);
+exportImageButton.addEventListener('click', exportResultsAsImage);
+exportCSVButton.addEventListener('click', exportResultsAsCSV);
 
 // Inicializar Histórico e Tema
 document.addEventListener('DOMContentLoaded', () => {
@@ -129,13 +133,6 @@ function displayResults(pairs) {
         resultDiv.appendChild(pairDiv);
     });
 
-    // Botão para Exportar Resultados
-    const exportButton = document.createElement('button');
-    exportButton.classList.add('btn', 'btn-success', 'mt-3');
-    exportButton.innerHTML = '<i class="fas fa-download"></i> Exportar Resultados (CSV)';
-    exportButton.addEventListener('click', () => exportCSV(pairs));
-    resultDiv.appendChild(exportButton);
-
     // Scroll suave até aos resultados
     resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
@@ -188,24 +185,61 @@ function displayHistoricalResult(entry) {
         resultDiv.appendChild(pairDiv);
     });
 
-    // Botão para Exportar Resultados
-    const exportButton = document.createElement('button');
-    exportButton.classList.add('btn', 'btn-success', 'mt-3');
-    exportButton.innerHTML = '<i class="fas fa-download"></i> Exportar Resultados (CSV)';
-    exportButton.addEventListener('click', () => exportCSV(entry.pairs));
-    resultDiv.appendChild(exportButton);
-
     // Scroll suave até aos resultados
     resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Função para Exportar Resultados em CSV
-function exportCSV(pairs) {
+function exportResultsAsCSV() {
+    const resultDiv = document.getElementById('result');
+    if (resultDiv.innerHTML.trim() === '') {
+        alert('Não há resultados para exportar.');
+        return;
+    }
+
+    const pairs = [];
+    const pairDivs = resultDiv.querySelectorAll('.pair');
+    pairDivs.forEach(div => {
+        const team = div.querySelector('strong').nextSibling.textContent.trim();
+        const player = div.querySelector('strong:nth-of-type(2)').nextSibling.textContent.trim();
+        pairs.push({ team, player });
+    });
+
     const csvContent = "data:text/csv;charset=utf-8," 
         + "Equipa,Jogador\n"
         + pairs.map(pair => `"${pair.team}","${pair.player}"`).join("\n");
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, `sorteio_${new Date().toISOString()}.csv`);
+}
+
+// Função para Exportar Resultados como Imagem
+function exportResultsAsImage() {
+    const resultDiv = document.getElementById('result');
+    
+    if (resultDiv.innerHTML.trim() === '') {
+        alert('Não há resultados para exportar.');
+        return;
+    }
+
+    // Usar html2canvas para Capturar o Div de Resultados
+    html2canvas(resultDiv, {
+        backgroundColor: null, // Preserva a transparência, se desejado
+        scale: 2 // Aumenta a escala para melhor qualidade da imagem
+    }).then(canvas => {
+        // Converter o Canvas para Blob
+        canvas.toBlob(blob => {
+            // Criar um link temporário para download
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `resultados_sorteio_${new Date().toISOString()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }, 'image/png');
+    }).catch(error => {
+        console.error('Erro ao exportar a imagem:', error);
+        alert('Ocorreu um erro ao exportar a imagem. Por favor, tente novamente.');
+    });
 }
 
 // Função para Manipular Upload de Equipas
