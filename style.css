@@ -1,6 +1,23 @@
-/* Estilo Geral */
+/* Definição de CSS Variables para Modo Claro */
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --card-header-bg-primary: #0d6efd;
+    --card-header-bg-success: #198754;
+    --button-bg-secondary: #6c757d;
+    --button-text-secondary: #ffffff;
+    --button-bg-primary: #0d6efd;
+    --button-bg-warning: #ffc107;
+    --badge-bg-primary: #0d6efd;
+    --pair-border-color: #0d6efd;
+    --pair-bg: #ffffff;
+}
+
+/* Estilos Gerais */
 body {
-    background-color: #f8f9fa;
+    background-color: var(--background-color);
+    color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -8,45 +25,77 @@ h1 {
     font-size: 2.5rem;
 }
 
+.card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--card-header-bg-primary);
+}
+
+.card-header.bg-success {
+    background-color: var(--card-header-bg-success);
 }
 
 textarea::placeholder {
     color: #6c757d;
 }
 
+.btn-secondary {
+    background-color: var(--button-bg-secondary);
+    color: var(--button-text-secondary);
+    border-color: var(--button-bg-secondary);
+}
+
+.btn-primary {
+    background-color: var(--button-bg-primary);
+    border-color: var(--button-bg-primary);
+}
+
+.btn-warning {
+    background-color: var(--button-bg-warning);
+    border-color: var(--button-bg-warning);
+    color: #212529;
+}
+
+.list-group-item {
+    background-color: #ffffff;
+    color: var(--text-color);
+}
+
+.pair {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 5px solid var(--pair-border-color);
+    background-color: var(--pair-bg);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border-left-color 0.3s;
+}
+
+.badge.bg-primary {
+    background-color: var(--badge-bg-primary);
+    cursor: pointer;
+}
+
 /* Modo Escuro */
 body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-body.dark-mode .card {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-mode .card-header {
-    background-color: #333333;
-}
-
-body.dark-mode .btn-secondary {
-    background-color: #444444;
-    border-color: #444444;
-}
-
-body.dark-mode .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-
-body.dark-mode .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #212529;
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --card-header-bg-primary: #333333;
+    --card-header-bg-success: #28a745;
+    --button-bg-secondary: #444444;
+    --button-text-secondary: #ffffff;
+    --button-bg-primary: #0d6efd;
+    --button-bg-warning: #ffc107;
+    --badge-bg-primary: #0d6efd;
+    --pair-border-color: #0d6efd;
+    --pair-bg: #343a40;
 }
 
 body.dark-mode .list-group-item {
@@ -59,60 +108,9 @@ body.dark-mode .list-group-item:nth-child(odd) {
 }
 
 body.dark-mode .pair {
-    background-color: #343a40;
-    border-left-color: #0d6efd;
+    background-color: var(--pair-bg);
 }
 
-/* Resultados */
-#result h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.pair {
-    padding: 15px;
-    margin-bottom: 10px;
-    border-left: 5px solid #0d6efd;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, border-left-color 0.3s;
-}
-
-.pair:nth-child(odd) {
-    border-left-color: #198754;
-}
-
-.pair:nth-child(even) {
-    border-left-color: #dc3545;
-}
-
-body.dark-mode .pair {
-    background-color: #343a40;
-}
-
-/* Histórico de Sorteios */
-#history h2 {
-    margin-bottom: 20px;
-}
-
-.list-group-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.list-group-item .badge {
-    background-color: #0d6efd;
-    cursor: pointer;
-}
-
-body.dark-mode .badge {
-    background-color: #0d6efd;
-}
-
-/* Botão de Upload */
-.btn-light {
-    color: inherit;
-    border: none;
+body.dark-mode .badge.bg-primary {
+    background-color: var(--badge-bg-primary);
 }
