@@ -6,22 +6,37 @@
     <title>Sorteio de Equipas OSM</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container my-5">
-        <div class="text-center mb-4">
-            <h1>Sorteio de Equipas para Liga OSM</h1>
-            <p>Insira os nomes das equipas e dos jogadores, e realize o sorteio de forma simples e rápida.</p>
+        <!-- Cabeçalho com Título e Botão de Tema -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1>Sorteio de Equipas para Liga OSM</h1>
+                <p class="text-muted">Insira os nomes das equipas e dos jogadores, e realize o sorteio de forma simples e rápida.</p>
+            </div>
+            <button id="themeToggle" class="btn btn-secondary">
+                <i class="fas fa-moon"></i> Modo Escuro
+            </button>
         </div>
 
+        <!-- Seção de Inserção de Equipas e Jogadores -->
         <div class="row">
             <!-- Inserir Equipas -->
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Inserir Equipas</h5>
+                        <div>
+                            <label for="uploadTeams" class="btn btn-sm btn-light text-primary mb-0">
+                                <i class="fas fa-upload"></i> Upload CSV
+                            </label>
+                            <input type="file" id="uploadTeams" accept=".csv" hidden>
+                        </div>
                     </div>
                     <div class="card-body">
                         <textarea id="teams" class="form-control" rows="10" placeholder="Digite os nomes das equipas, um por linha"></textarea>
@@ -31,8 +46,14 @@
             <!-- Inserir Jogadores -->
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Inserir Jogadores</h5>
+                        <div>
+                            <label for="uploadPlayers" class="btn btn-sm btn-light text-success mb-0">
+                                <i class="fas fa-upload"></i> Upload CSV
+                            </label>
+                            <input type="file" id="uploadPlayers" accept=".csv" hidden>
+                        </div>
                     </div>
                     <div class="card-body">
                         <textarea id="players" class="form-control" rows="10" placeholder="Digite os nomes dos jogadores, um por linha"></textarea>
@@ -41,19 +62,38 @@
             </div>
         </div>
 
-        <!-- Botão de Sorteio -->
+        <!-- Botões de Ação -->
         <div class="text-center mb-4">
-            <button id="sortButton" class="btn btn-primary btn-lg">Sortear Equipas</button>
+            <button id="sortButton" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-random"></i> Sortear Equipas
+            </button>
+            <button id="resetButton" class="btn btn-warning btn-lg">
+                <i class="fas fa-redo"></i> Reiniciar Sorteio
+            </button>
         </div>
 
         <!-- Resultados do Sorteio -->
         <div id="result" class="mt-4">
             <!-- Os resultados serão exibidos aqui -->
         </div>
+
+        <!-- Histórico de Sorteios -->
+        <div id="history" class="mt-5">
+            <h2>Histórico de Sorteios</h2>
+            <ul class="list-group" id="historyList">
+                <!-- Itens do histórico serão adicionados aqui -->
+            </ul>
+        </div>
     </div>
 
     <!-- Bootstrap JS e dependências -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- PapaParse para Manipulação de CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <!-- FileSaver.js para Download de Ficheiros -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <!-- JavaScript Personalizado -->
     <script src="script.js"></script>
 </body>
